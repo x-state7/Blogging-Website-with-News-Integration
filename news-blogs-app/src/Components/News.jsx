@@ -5,8 +5,19 @@ import "./News.css"
 import noImg from '../assets/images/image1.jpg'
 import axios from 'axios'
 import NewsModal from "./NewsModal";
+import Bookmarks from "./Bookmarks";
 
-const categories = ["general", "world", "business", "technology", "entertainment", "sports", "science", "health", "nation"]
+const categories = [
+  "general",
+  "world",
+  "business",
+  "technology",
+  "entertainment",
+  "sports",
+  "science",
+  "health",
+  "nation"
+]
 
 const News = () => {
   const [headline, setHeadline] = useState(null);
@@ -95,6 +106,7 @@ const News = () => {
                   className="nav-link">{category} </a>
               ))}
               <i className="fa-regular fa-bookmark"></i>
+              {/* <i className="fa-regular fa-bookmark"></i> */}
             </div>
           </nav>
         </div>
@@ -139,6 +151,8 @@ const News = () => {
           article={selectedArticle}
           onClose={() => setShowModal(false)}>
         </NewsModal>
+
+        <Bookmarks></Bookmarks>
 
         {/* my blogs */}
         <div className="my-blogs">My Blogs</div>

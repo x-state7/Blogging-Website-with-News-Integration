@@ -48,6 +48,10 @@ const News = () => {
       })
       setHeadline(fetchedNews[0])
       setNews(fetchedNews.slice(1, 7));
+
+      const savedBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || []
+      setBookmarks(savedBookmarks);
+
       console.log(fetchedNews)
     }
     fetchNews()
@@ -73,6 +77,8 @@ const News = () => {
       const updatedBookmarks = prevBookmarks.find((bookmark) => bookmark.title === article.title)
         ? prevBookmarks.filter((bookmark) => bookmark.title !== article.title) // Remove if already bookmarked
         : [...prevBookmarks, article]; // Add if not bookmarked
+
+      localStorage.setItem('bookmarks', JSON.stringify(updatedBookmarks))
 
       return updatedBookmarks;
     });

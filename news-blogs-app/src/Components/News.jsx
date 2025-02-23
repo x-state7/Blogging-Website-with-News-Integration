@@ -4,6 +4,7 @@ import Calendar from "./Calendar";
 import "./News.css"
 import noImg from '../assets/images/image1.jpg'
 import axios from 'axios'
+import NewsModal from "./NewsModal";
 
 const categories = ["general", "world", "business", "technology", "entertainment", "sports", "science", "health", "nation"]
 
@@ -112,9 +113,9 @@ const News = () => {
                 <i className="fa-regular fa-bookmark bookmark"></i>
               </div>
             ))}
-
           </div>
         </div>
+        <NewsModal></NewsModal>
 
         {/* my blogs */}
         <div className="my-blogs">My Blogs</div>

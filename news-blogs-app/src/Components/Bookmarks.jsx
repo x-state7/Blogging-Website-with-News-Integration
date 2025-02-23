@@ -2,6 +2,8 @@ import React from 'react'
 import demoImg from '../assets/images/1.jpg'
 import './Bookmarks.css'
 import './Modal.css'
+
+
 export const Bookmarks = () => {
   return (
     <div className='modal-overlay'>

@@ -14,7 +14,8 @@ const News = () => {
   const [selectedCategory, setSelectedCategory] = useState('general')
   const [searchInput, setSearchInput] = useState('')
   const [searchQuery, setSearchquery] = useState('')
-
+  const [showModal, setShowModal] = useState(false)
+  const [selectedArticle, setselectedArticle] = useState(null)
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -51,6 +52,11 @@ const News = () => {
     setSearchInput('')
   }
 
+  const handleArticleClick = (article) => {
+    setselectedArticle(article)
+    setShowModal(true);
+    console.log(article)
+  }
   return (
     <div className="news">
       <header className="news-header">
@@ -96,9 +102,16 @@ const News = () => {
         {/* news section */}
         <div className="news-section">
           {headline && (
-            <div className="headline">
-              <img src={headline.image || noImg} alt={headline.title}></img>
-              <h2 className="headline-title">
+            <div
+              className="headline"
+              onClick={() => handleArticleClick(headline)}>
+              <img
+                src={headline.image || noImg}
+                alt={headline.title}>
+
+              </img>
+              <h2
+                className="headline-title">
                 {headline.title}
                 <i className="fa-regular fa-bookmark bookmark"></i>
               </h2>
@@ -107,15 +120,25 @@ const News = () => {
 
           <div className="news-grid">
             {news.map((article, index) => (
-              <div key={index} className="news-grid-item">
-                <img src={article.image || noImg} alt={article.title}></img>
+              <div
+                key={index}
+                className="news-grid-item"
+                onClick={() => handleArticleClick(article)}>
+                <img
+                  src={article.image || noImg}
+                  alt={article.title}></img>
                 <h3>{article.title}</h3>
                 <i className="fa-regular fa-bookmark bookmark"></i>
               </div>
             ))}
           </div>
         </div>
-        <NewsModal></NewsModal>
+
+        <NewsModal
+          show={showModal}
+          article={selectedArticle}
+          onClose={() => setShowModal(false)}>
+        </NewsModal>
 
         {/* my blogs */}
         <div className="my-blogs">My Blogs</div>

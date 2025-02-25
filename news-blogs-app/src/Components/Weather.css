@@ -74,10 +74,40 @@
   color: #ffc87c;
 }
 
+.weather-data i.bxs-cloud {
+  color: #fff;
+}
+
+.weather-data i.bxs-cloud-rain {
+  color: #5fd1f9;
+}
+
+.weather-data i.bxs-cloud-lightning {
+  color: #154abd;
+}
+
+.weather-data i.bxs-cloud-sun {
+  color: #ffc87c;
+}
+
+.weather-data i.smoke {
+  color: #696969;
+}
+
+.weather-data i.drizzle {
+  color: #bcbcbc;
+}
+
 .weather-type,
 .temp {
   font-family: "Comfortaa", sans-serif;
   font-size: 2rem;
   color: #ddd;
+}
 
+.not-found {
+  font-family: "Comfortaa", sans-serif;
+  font-size: 1.6rem;
+  margin-bottom: 12rem;
+  color: #ddd;
 }

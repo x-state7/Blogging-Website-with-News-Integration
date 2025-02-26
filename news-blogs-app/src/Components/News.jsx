@@ -217,7 +217,12 @@ const News = () => {
         </div>
 
       </div>
-      <footer className="news-footer">Footer</footer>
+      <footer className="news-footer">
+        <p>
+          <span>News & Blogs App</span>
+        </p>
+        <p>&copy;All Rights Reserved</p>
+      </footer>
     </div>
   )
 }

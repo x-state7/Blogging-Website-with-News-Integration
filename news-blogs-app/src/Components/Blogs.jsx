@@ -6,6 +6,19 @@ const Blogs = ({ onBack, onCreateBlog }) => {
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [titleValid, setTitleValid] = useState(true);
+  const [contentValid, setContentValid] = useState(true);
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+    setTitleValid(true);
+  }
+
+  const handleContentChange = (e) => {
+    setContent(e.target.value)
+    setContentValid(true)
+  }
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -19,6 +32,12 @@ const Blogs = ({ onBack, onCreateBlog }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (!title || !content) {
+      if (!title) setTitleValid(false);
+      if (!content) setContentValid(false);
+      return;
+    }
+
     const newBlog = {
       image,
       title,
@@ -29,6 +48,11 @@ const Blogs = ({ onBack, onCreateBlog }) => {
     setTitle("");
     setContent("");
     setShowForm(false);
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false)
+      onBack()
+    }, 1000)
   }
 
   return (
@@ -39,45 +63,50 @@ const Blogs = ({ onBack, onCreateBlog }) => {
       </div>
 
       <div className="blogs-right">
-        {showForm ? (
-          <div className="blogs-right-form">
-            <h1>New post</h1>
-            <form onSubmit={handleSubmit}>
-              <div className="img-upload">
+        {!showForm && !submitted && (
+          <button className="post-btn"
+            onClick={() => setShowForm(true)}>
+            Create New Post
+          </button>
+        )}
+        {submitted && <p className="submission-message">Post Submitted! </p>}
 
-                <label
-                  htmlFor="file-upload"
-                  className="file-upload">
-                  <i className="bx bx-upload"></i>Upload Image
-                </label>
+        <div className={`blogs-right-form ${showForm ? "visible" : "hidden"}`}>
+          <h1>New post</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="img-upload">
 
-                <input
-                  type="file"
-                  id='file-upload'
-                  onChange={handleImageChange}></input>
-              </div>
+              <label
+                htmlFor="file-upload"
+                className="file-upload">
+                <i className="bx bx-upload"></i>Upload Image
+              </label>
 
               <input
-                type="text"
-                placeholder="Add Title (Max 60 Characters)" className="title-input"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}>
-              </input>
+                type="file"
+                id='file-upload'
+                onChange={handleImageChange}></input>
+            </div>
 
-              <textarea
-                className="text-input"
-                placeholder="Add Text"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              ></textarea>
+            <input
+              type="text"
+              placeholder="Add Title (Max 60 Characters)" className={`title-input ${!titleValid ? 'invalid' : ""}`}
+              value={title}
+              onChange={handleTitleChange}
+              maxLength={60}
+            >
+            </input>
 
-              <button type="submit" className="submit-btn">Submit Button</button>
-            </form>
-          </div>) :
-          (<button className="post-btn"
-            onClick={() => setShowForm(true)}>Create New Post</button>)}
+            <textarea
+              className={`text-input ${!contentValid ? 'invalid' : ''}`}
+              placeholder="Add Text"
+              value={content}
+              onChange={handleContentChange}
+            ></textarea>
 
-
+            <button type="submit" className="submit-btn">Submit Button</button>
+          </form>
+        </div>
 
         <button
           className="blogs-close-btn"

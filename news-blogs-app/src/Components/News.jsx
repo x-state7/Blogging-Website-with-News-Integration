@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Weather from "./Weather";
 import Calendar from "./Calendar";
 import "./News.css"
@@ -8,6 +8,7 @@ import blogImg1 from '../assets/images/3.jpg'
 import axios from 'axios'
 import NewsModal from "./NewsModal";
 import Bookmarks from "./Bookmarks";
+import BlogsModal from "./BlogsModal";
 
 const categories = [
   "general",
@@ -31,7 +32,8 @@ const News = ({ onShowBlogs, blogs }) => {
   const [selectedArticle, setselectedArticle] = useState(null)
   const [bookmarks, setBookmarks] = useState([])
   const [showBookmarksModal, setShowBookmarksModal] = useState(false)
-
+  const [selectedPost, setSelectedPost] = useState(null)
+  const [showBlogModal, setShowBlogModal] = useState(false)
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -86,7 +88,15 @@ const News = ({ onShowBlogs, blogs }) => {
     });
   };
 
+  const handleBlogClick = (blog) => {
+    setSelectedPost(blog);
+    setShowBlogModal(true);
+  }
 
+  const closeBlogModal = () => {
+    setShowBlogModal(false);
+    setSelectedPost(null);
+  }
   return (
     <div className="news">
       <header className="news-header">
@@ -214,7 +224,11 @@ const News = ({ onShowBlogs, blogs }) => {
           <h1 className="my-blogs-heading">My Blogs</h1>
           <div className="blog-posts">
             {blogs.map((blog, index) => (
-              <div key={index} className="blog-post">
+              <div
+                key={index}
+                className="blog-post"
+                onClick={() => handleBlogClick(blog)}>
+
                 <img src={blog.image} alt={blog.title}></img>
                 <h3>{blog.title}</h3>
                 <p>{blog.content}</p>
@@ -228,6 +242,12 @@ const News = ({ onShowBlogs, blogs }) => {
                 </div>
               </div>
             ))}
+            {selectedPost && showBlogModal && (
+              <BlogsModal
+                show={showBlogModal}
+                blog={selectedPost}
+                onClose={closeBlogModal}>
+              </BlogsModal>)}
 
           </div>
         </div>

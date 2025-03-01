@@ -83,5 +83,10 @@
   color: #fff;
   background: linear-gradient(to right, #b88efc, #6877f4);
   border-radius: 50%;
+}
 
+@media(max-width: 900px) {
+  .calendar {
+    height: 100%;
+  }
 }

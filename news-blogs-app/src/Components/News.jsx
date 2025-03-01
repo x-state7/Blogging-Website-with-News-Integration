@@ -231,7 +231,7 @@ const News = ({ onShowBlogs, blogs, onEditBlog, onDeleteBlog }) => {
 
                 <img src={blog.image} alt={blog.title}></img>
                 <h3>{blog.title}</h3>
-                <p>{blog.content}</p>
+                {/* <p>{blog.content}</p> */}
                 <div className="post-buttons">
                   <button className="edit-post" onClick={() => onEditBlog(blog)}>
                     <i className="bx bxs-edit"></i>
